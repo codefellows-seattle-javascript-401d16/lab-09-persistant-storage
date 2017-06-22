@@ -1,6 +1,7 @@
 'use strict';
 
 const requestParse = require('./request-parse.js');
+const responseHelpers = require('./response-helpers.js');
 
 const routes = {
   GET: {},
@@ -28,24 +29,13 @@ router.put = (pathname, callback) => {
 };
 
 router.route = (req, res) => {
+  responseHelpers(res);
   requestParse(req, err => {
-    if(err) {
-      res.writeHead(400, {
-        'Content-Type': 'text/plain',
-      });
-      res.write('Bad request!');
-      res.end();
-      return;
-    }
+    if(err) return res.sendStatus(400);
     let routeHandler = routes[req.method][req.url.pathname];
-    if(routeHandler) {
+    if(routeHandler)
       routeHandler(req, res);
-    } else {
-      res.writeHead(404, {
-        'Content-Type': 'text/plain',
-      });
-      res.write('Route not found!');
-      res.end();
-    }
+    else
+      return res.sendStatus(404);
   });
 };
