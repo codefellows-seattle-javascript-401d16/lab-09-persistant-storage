@@ -2,7 +2,7 @@
 const storage = require('../lib/storage.js');
 
 class Waypoint {
-  constructor(id, name, lat, long, desc) {
+  constructor(name, lat, long, desc, id) {
     this.id = id;
     this.name = name;
     this.latitude = lat;

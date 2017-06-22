@@ -1,11 +1,9 @@
 'use strict';
 
 const http = require('http');
+
 const router = require('./router.js');
-
 const Waypoint = require('../model/Waypoint.js');
-
-var storage = {};
 
 router.post('/api/waypoints', (req, res) => {
 
@@ -15,35 +13,21 @@ router.post('/api/waypoints', (req, res) => {
     return;
   }
   // TODO: verify the body has lat, long, desc
-  let waypoint = new Waypoint(req.body.name, req.body.lat, req.body.long, req.body.desc);
-
-  storage[waypoint.id] = waypoint;
-  res.writeHead(201, {
-    'Content-Type': 'application/json',
-  });
-  res.write(JSON.stringify(waypoint));
-  res.end();
+  new Waypoint(req.body.name, req.body.lat, req.body.long, req.body.desc)
+  .save()
+  .then(Waypoint => res.sendJSON(200, Waypoint))
+  .catch(err => res.sendStatus(500));
 });
 
 router.get('/api/waypoints', (req, res) => {
-  if(!req.url.query.id){
-    res.writeHead(400);
-    res.end();
-    return ;
-  }
+  if(!req.url.query.id) return res.sendStatus(400);
 
-  if(!storage[req.url.query.id]){
-    res.writeHead(404);
-    res.end();
-    return ;
-  }
-
-  res.writeHead(200, {
-    'Content-Type': 'application/json',
+  Waypoint.findById(req.url.query.id)
+  .then(note => res.sendJSON(200, note))
+  .catch(err => {
+    console.error(err);
+    res.sendStatus(404);
   });
-  res.write(JSON.stringify(storage[req.url.query.id]));
-  res.end();
-
 });
 
 router.put('/api/waypoints', (req, res) => {
@@ -53,7 +37,7 @@ router.put('/api/waypoints', (req, res) => {
     res.end();
     return ;
   }
-  
+
   if(req.body.name) storage[req.body.id].name = req.body.name;
   if(req.body.lat) storage[req.body.id].latitude = req.body.lat;
   if(req.body.long) storage[req.body.id].longitude = req.body.long;

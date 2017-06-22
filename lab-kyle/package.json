@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "fs-extra": "^3.0.1",
     "uuid": "^3.1.0"
   },
   "devDependencies": {

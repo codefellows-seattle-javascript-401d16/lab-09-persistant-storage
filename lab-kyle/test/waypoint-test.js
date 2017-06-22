@@ -1,8 +1,8 @@
 'use strict';
 
-const mocha = require('mocha');
 const expect = require('expect');
 const superagent = require('superagent');
+const fs = require('fs-extra');
 
 const server = require('../lib/server.js');
 let tempWaypoint;
