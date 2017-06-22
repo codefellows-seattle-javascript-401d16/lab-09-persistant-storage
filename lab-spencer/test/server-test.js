@@ -4,17 +4,22 @@ const superagent = require('superagent');
 const expect = require('expect');
 const server = require('../lib/server.js');
 const Seahawk = require('../model/seahawk.js');
+const fs = require('fs-extra');
 const PORT = process.env.PORT || 3000;
 
 describe('Seahawk Constructor', () => {
-  it('Should return a Seahawk Object', () => {
-    let me = new Seahawk('Spencer Gietzen', '5\'10"', '150', 'TB', 'rand/pic.png');
-    expect(me.id).toExist();
-    expect(me.name).toEqual('Spencer Gietzen');
-    expect(me.height).toEqual('5\'10"');
-    expect(me.weight).toEqual('150');
-    expect(me.position).toEqual('TB');
-    expect(me.picture).toEqual('rand/pic.png');
+  it('Should return a Seahawk Object', done => {
+    new Seahawk('Spencer Gietzen', '5\'10"', '150', 'TB', 'rand/pic.png')
+      .save()
+      .then(data => {
+        expect(data.id).toExist();
+        expect(data.name).toEqual('Spencer Gietzen');
+        expect(data.height).toEqual('5\'10"');
+        expect(data.weight).toEqual('150');
+        expect(data.position).toEqual('TB');
+        expect(data.picture).toEqual('rand/pic.png');
+        done();
+      });
   });
 });
 
@@ -22,13 +27,16 @@ describe('/api/seahawks routes', () => {
   let tempSeahawk;
 
   before((done) => {
-    server.listen(POR, () => done());
+    server.listen(PORT, () => done());
   });
   after((done) => {
     server.close(() => done());
   });
-  after(() => {
-    return fs.emptyDir(`${__dirname}/../data`);
+  after((done) => {
+    fs.emptyDir(`${__dirname}/../data`)
+      .then(() => {
+        done();
+      });
   });
 
   describe('POST', () => {
@@ -48,12 +56,11 @@ describe('/api/seahawks routes', () => {
           done();
         });
     });
-    it('Should respond 400 with \'Bad request!\'', done => {
+    it('Should respond 400', done => {
       superagent.post(`localhost:${PORT}/api/seahawks`)
         .send({})
         .end((err, res) => {
           expect(res.status).toEqual(400);
-          expect(res.text).toEqual('Bad request!');
           done();
         });
     });
@@ -74,32 +81,29 @@ describe('/api/seahawks routes', () => {
           done();
         });
     });
-    it('Should respond 200 with \'No ID, responding with all data!', done => {
+    it('Should respond 400', done => {
       superagent.get(`localhost:${PORT}/api/seahawks`)
         .end((err, res) => {
-          if(err) return done(err);
-          expect(res.status).toEqual(200);
-          expect(res.body).toExist();
+          expect(res.status).toEqual(400);
           done();
         });
     });
-    it('Should respond 404 with \'Seahawk not found!\'', done => {
+    it('Should respond 404', done => {
       superagent.get(`localhost:${PORT}/api/seahawks?id=142`)
         .end((err, res) => {
           expect(res.status).toEqual(404);
-          expect(res.text).toEqual('Seahawk not found!');
           done();
         });
     });
   });
   describe('PUT', () => {
-    it('Should respond 202 with \'Seahawk updated!\'', done => {
+    it('Should respond 202', done => {
       superagent.put(`localhost:${PORT}/api/seahawks?id=${tempSeahawk.id}`)
-        .send(JSON.stringify({id: tempSeahawk.id, name: 'Russell Hawk', height: '6\'12"', weight: '185', position: 'QB', picture: 'testpic/pic.png'}))
+        .send(JSON.stringify({name: 'Russell Hawk', height: '6\'12"', weight: '185', position: 'QB', picture: 'testpic/pic.png'}))
         .end((err, res) => {
           if (err) return done(err);
           expect(res.status).toEqual(202);
-          expect(res.body.id).toExist();
+          expect(res.body.id).toEqual(tempSeahawk.id);
           expect(res.body.name).toEqual('Russell Hawk');
           expect(res.body.height).toEqual('6\'12"');
           expect(res.body.weight).toEqual('185');
@@ -109,47 +113,43 @@ describe('/api/seahawks routes', () => {
           done();
         });
     });
-    it('Should respond 400 with \'Bad request!\'', done => {
+    it('Should respond 400', done => {
       superagent.put(`localhost:${PORT}/api/seahawks`)
         .send({})
         .end((err, res) => {
           expect(res.status).toEqual(400);
-          expect(res.text).toEqual('Bad request!');
           done();
         });
     });
-    it('Should respond 404 with \'Seahawk not found!\'', done => {
-      superagent.put(`localhost:${PORT}/api/seahawks?id=9999`)
-      .send(JSON.stringify({id: tempSeahawk.id, name: 'Russell Wilson', height: '6\'12"', weight: '185', position: 'QB', picture: 'testpic/pic.png'}))
+    it('Should respond 404', done => {
+      superagent.put(`localhost:${PORT}/api/seahawks?id=999999`)
+      .send(JSON.stringify({name: 'Russell Wilson', height: '6\'12"', weight: '185', position: 'QB', picture: 'testpic/pic.png', id: 9999999}))
       .end((err, res) => {
         expect(res.status).toEqual(404);
-        expect(res.text).toEqual('Seahawk not found!');
         done();
       });
     });
   });
   describe('DELETE', () => {
-    it('Should respond 204 with \'Seahawk deleted!\'', done => {
+    it('Should respond 204', done => {
       superagent.delete(`localhost:${PORT}/api/seahawks?id=${tempSeahawk.id}`)
         .end((err, res) => {
           expect(res.status).toEqual(204);
           done();
         });
     });
-    it('Should respond 400 with \'Bad request!\'', done => {
+    it('Should respond 400', done => {
       superagent.delete(`localhost:${PORT}/api/seahawks`)
         .send({})
         .end((err, res) => {
           expect(res.status).toEqual(400);
-          expect(res.text).toEqual('Bad request!');
           done();
         });
     });
-    it('Should respond 404 with \'Seahawk not found!\'', done => {
+    it('Should respond 404', done => {
       superagent.delete(`localhost:${PORT}/api/seahawks?id=9999999`)
         .end((err, res) => {
           expect(res.status).toEqual(404);
-          expect(res.text).toEqual('Seahawk not found!');
           done();
         });
     });

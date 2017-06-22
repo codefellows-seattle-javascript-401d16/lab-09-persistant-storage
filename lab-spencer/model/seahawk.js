@@ -17,6 +17,7 @@ class Seahawk {
   }
 
   update() {
+    // ERROR BEGINS HERE
     return storage.updateItem(this);
   }
 
@@ -29,7 +30,8 @@ Seahawk.findById = id => {
   return storage.fetchItem(id)
     .then(data => {
       return new Seahawk(data.name, data.height, data.weight, data.position, data.picture, data.id);
-    });
+    })
+    .catch(err => Promise.reject(err));
 };
 
 module.exports = Seahawk;
