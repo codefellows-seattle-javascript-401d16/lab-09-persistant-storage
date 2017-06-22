@@ -30,19 +30,14 @@ describe('/api/seahawks routes', () => {
     server.listen(PORT, () => done());
   });
   after((done) => {
+    fs.emptyDir(`${__dirname}/../data`);
     server.close(() => done());
-  });
-  after((done) => {
-    fs.emptyDir(`${__dirname}/../data`)
-      .then(() => {
-        done();
-      });
   });
 
   describe('POST', () => {
     it('Should respond 201 with stringified JSON of the player posted', done => {
       superagent.post(`localhost:${PORT}/api/seahawks`)
-        .send(JSON.stringify({name: 'Russell Wilson', height: '6\'11"', weight: '500', position: 'QB', picture: 'testpic/pic.png'}))
+        .send({name: 'Russell Wilson', height: '6\'11"', weight: '500', position: 'QB', picture: 'testpic/pic.png'})
         .end((err, res) => {
           if (err) return done(err);
           expect(res.status).toEqual(201);
@@ -99,7 +94,7 @@ describe('/api/seahawks routes', () => {
   describe('PUT', () => {
     it('Should respond 202', done => {
       superagent.put(`localhost:${PORT}/api/seahawks?id=${tempSeahawk.id}`)
-        .send(JSON.stringify({name: 'Russell Hawk', height: '6\'12"', weight: '185', position: 'QB', picture: 'testpic/pic.png'}))
+        .send({name: 'Russell Hawk', height: '6\'12"', weight: '185', position: 'QB', picture: 'testpic/pic.png'})
         .end((err, res) => {
           if (err) return done(err);
           expect(res.status).toEqual(202);
@@ -123,7 +118,7 @@ describe('/api/seahawks routes', () => {
     });
     it('Should respond 404', done => {
       superagent.put(`localhost:${PORT}/api/seahawks?id=999999`)
-      .send(JSON.stringify({name: 'Russell Wilson', height: '6\'12"', weight: '185', position: 'QB', picture: 'testpic/pic.png', id: 9999999}))
+      .send({name: 'Russell Wilson', height: '6\'12"', weight: '185', position: 'QB', picture: 'testpic/pic.png', id: 9999999})
       .end((err, res) => {
         expect(res.status).toEqual(404);
         done();
