@@ -1,7 +1,6 @@
 'use strict';
 
 const bodyParse = require('./bodyParse.js');
-const responseHelpers = require('./responseHelpers.js');
 
 const routes = {
   GET: {},
@@ -29,7 +28,6 @@ router.delete = (pathname, callback) => {
 };
 
 router.path = (req, res) => {
-  responseHelpers(res);
   bodyParse(req, (err) => {
     if (err) {
       res.writeHead(400);

@@ -2,7 +2,7 @@
 
 const http = require('http');
 const uuid = require('uuid');
-const router = require('./router.js');
+const router = require('../route/router.js');
 const Note = require('../model/note.js');
 
 var storage = {};
