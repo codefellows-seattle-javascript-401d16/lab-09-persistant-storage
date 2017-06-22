@@ -8,8 +8,8 @@ const PORT = process.env.PORT || 3000;
 
 describe('Seahawk Constructor', () => {
   it('Should return a Seahawk Object', () => {
-    let me = new Seahawk(1, 'Spencer Gietzen', '5\'10"', '150', 'TB', 'rand/pic.png');
-    expect(me.id).toEqual(1);
+    let me = new Seahawk('Spencer Gietzen', '5\'10"', '150', 'TB', 'rand/pic.png');
+    expect(me.id).toExist();
     expect(me.name).toEqual('Spencer Gietzen');
     expect(me.height).toEqual('5\'10"');
     expect(me.weight).toEqual('150');
@@ -20,12 +20,17 @@ describe('Seahawk Constructor', () => {
 
 describe('/api/seahawks routes', () => {
   let tempSeahawk;
-  before(done => {
-    server.listen(PORT, () => done());
+
+  before((done) => {
+    server.listen(POR, () => done());
   });
-  after(done => {
+  after((done) => {
     server.close(() => done());
   });
+  after(() => {
+    return fs.emptyDir(`${__dirname}/../data`);
+  });
+
   describe('POST', () => {
     it('Should respond 201 with stringified JSON of the player posted', done => {
       superagent.post(`localhost:${PORT}/api/seahawks`)

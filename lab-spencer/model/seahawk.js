@@ -28,7 +28,7 @@ class Seahawk {
 Seahawk.findById = id => {
   return storage.fetchItem(id)
     .then(data => {
-      return new Seahawk(data.name, data.height, data.weight, data.position, data.picture);
+      return new Seahawk(data.name, data.height, data.weight, data.position, data.picture, data.id);
     });
 };
 
