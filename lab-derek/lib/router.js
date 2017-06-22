@@ -1,8 +1,7 @@
 'use strict';
 
-//TODO*DONE: Create a Router Constructor that manages requests to GET, POST, PUT, and DELETE requests
-
 const requestParse = require('./request-parse.js');
+const responseHelpers = require('./response-helpers.js');
 const routes = {
   GET: {},
   POST: {},
@@ -11,9 +10,6 @@ const routes = {
 };
 
 const router = module.exports = {};
-
-
-//TODO*DONE: Create a route for doing CREATE, READ, and DELETE operations on your simple resource
 
 router.get = (pathname, callback) => {
   routes.GET[pathname] = callback;
@@ -31,7 +27,10 @@ router.delete = (pathname, callback) => {
   routes.DELETE[pathname] = callback;
 };
 
+// TODO: In the router add res.send, res.sendStatus, and res.json to the response objects, before they are passed into a route handler
+
 router.route = (req, res) => {
+  responseHelpers(res);
   requestParse(req, (err) => {
     if (err) {
       res.writeHead(400);
