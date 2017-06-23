@@ -2,7 +2,7 @@
 
 module.exports = (res) => {
 
- res.sendText = (status, data) => {
+  res.sendText = (status, data) => {
     res.writeHead(status, {
       'Content-Type' : 'text/plain',
     });
@@ -12,10 +12,6 @@ module.exports = (res) => {
 
   res.sendStatus = (status) => {
     res.writeHead(status);
-    //   {
-    //   'Content-Type' : 'text/plain',
-    // }
-
     res.end();
   };
 
