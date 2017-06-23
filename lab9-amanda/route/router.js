@@ -1,6 +1,6 @@
 'use strict';
 
-const requestParse = require('./request-parse.js');
+const requestParse = require('../lib/request-parse.js');
 
 const routes = {
   GET: {},
