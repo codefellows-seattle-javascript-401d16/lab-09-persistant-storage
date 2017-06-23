@@ -3,12 +3,13 @@
 const storage = require('../lib/storage.js')
 
 class Note {
-  constructor(content, id ){
+  constructor(content, id){
     this.content = content
-    this.id = id
+    this.id = id;
   }
 
   save(){
+    console.log('in save');
     return storage.setItem(this)
   }
 
@@ -21,7 +22,7 @@ class Note {
   }
 }
 
-Note.findById = (id) => {
+Note .findById = (id) => {
   return storage.fetchItem(id)
   .then(data => {
     return new Note(data.content, id)

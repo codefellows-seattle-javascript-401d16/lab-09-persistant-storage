@@ -1,20 +1,26 @@
 'use strict';
 
-const router = require('../lib/router.js')
+const http = require('http');
+const uuid = require('uuid');
+const server = require('../lib/server.js');
+const router = require('../lib/router.js');
+const Note = require('../model/note');
 
-const Note = require('../model/note.js');
+var storage = {};
 
 router.post('/api/notes', (req, res) => {
-  if(!req.body.content)
-    return res.sendStatus(400)
+  console.log(req.body);
+  if(!req.body.content) return res.sendStatus(400)
 
-  new Note(req.body.content)
+  let id = uuid.v1()
+
+  new Note(req.body.content, id)
   .save()
   .then(note => res.sendJSON(200, note))
   .catch(err => res.sendStatus(500))
 })
 
-
+//GET
 router.get('/api/notes', (req,res) => {
   if(!req.url.query.id)
     return res.sendStatus(400)

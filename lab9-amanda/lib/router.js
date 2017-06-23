@@ -1,6 +1,6 @@
 'use strict';
 
-const requestParse = require('../lib/request-parse.js');
+const requestParse = require('./request-parse.js');
 
 const routes = {
   GET: {},
@@ -28,10 +28,9 @@ router.put = (pathname, callback) => {
 }
 
 router.route = (req, res) => {
-  // parse the request
-  requestParse(req, (err) => {
 
-if(err){
+  requestParse(req, (err) => {
+    if(err){
       res.writeHead(400);
       res.end()
       return;

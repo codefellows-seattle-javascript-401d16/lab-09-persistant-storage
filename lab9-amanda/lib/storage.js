@@ -8,6 +8,7 @@ let storage = module.exports = {}
 const cache = {}
 
 storage.setItem = (data) => {
+  console.log('in setItem');
   data.id = uuid.v1()
   cache[data.id] = data
   // TODO:  now that it has an id save it to ../data/${id} as json
