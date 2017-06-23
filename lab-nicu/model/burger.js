@@ -44,6 +44,16 @@ Burger.findById = (id) => {
     });
 };
 
+Burger.getAllIds = () => {
+  return storage.fetchAllIds()
+    .then(data => {
+      return Promise.resolve(data);
+    })
+    .catch( err => {
+      return Promise.reject(err);
+    })
+};
+
 
 
 module.exports = Burger;

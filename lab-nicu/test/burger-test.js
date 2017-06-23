@@ -33,6 +33,7 @@ describe('testing burger routes', function () {
     });
     it('should respond with a 400', (done) => {
       superagent.post('localhost:3000/api/burgers')
+        .send()
         .end((err, res) => {
           expect(res.status).toEqual(400);
           done();

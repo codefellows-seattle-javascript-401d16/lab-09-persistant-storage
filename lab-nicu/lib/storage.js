@@ -9,8 +9,8 @@ storage.setItem = (data) => {
   data.id = uuid.v1();
 
   return fs.writeJSON(`${process.cwd()}/data/${data.id}`, data)
-    .then(() => data)
-    .catch((err) => console.log(err));
+    .then(() => Promise.resolve(data))
+    .catch((err) => Promise.reject(err));
 };
 
 storage.fetchItem = (id) => {
@@ -35,12 +35,22 @@ storage.updateItem = (data, updateData) => {
 };
 
 storage.deleteItem = (data) => {
-  console.log('in deleteItem')
+
   return fs.remove(`${process.cwd()}/data/${data.id}`)
     .then(() => {
       return Promise.resolve(data);
     })
     .catch(err => {
+      return Promise.reject(err);
+    });
+};
+
+storage.fetchAllIds = () => {
+  return fs.readdir(`${process.cwd()}/data`)
+    .then((data) => {
+      return Promise.resolve(data);
+    })
+    .catch((err)=> {
       return Promise.reject(err);
     });
 };

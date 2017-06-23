@@ -4,9 +4,9 @@ const router = require('../lib/router.js');
 const Burger = require('../model/burger.js');
 
 router.post('/api/burgers', (req, res) => {
-  if ((!req.body.name && !req.body.location && !req.body.stars) || req.body === {} || !req.body) {
-    res.writeHead(400);
-    return;
+  if (req.body === {} || !req.body) {
+    return res.sendStatus(400);
+
   }
   let burger = new Burger(req.body.name, req.body.location, req.body.stars);
   burger.save()
@@ -19,13 +19,11 @@ router.post('/api/burgers', (req, res) => {
 });
 
 router.get('/api/burgers', (req, res) => {
-  if (!req.url.query.id) {
-    res.writeHead(200, {
-      'Content-Type': 'application/json',
-    });
-    res.write(JSON.stringify({ Message: 'Burger IDs Available', ids: Object.keys(storage) }));
-    res.end();
-    return;
+  if(!req.url.query.id) {
+    return Burger.getAllIds()
+      .then((data) =>{
+        res.sendJSON(200, { Message: 'Burger IDs Available', ids: data});
+      });
   }
   return Burger.findById(req.url.query.id)
     .then((burger) => {
@@ -37,14 +35,9 @@ router.get('/api/burgers', (req, res) => {
 });
 
 router.delete('/api/burgers', (req, res) => {
-
   return Burger.findById(req.url.query.id)
     .then(burger =>{
-      console.log('in burger route');
-      return burger.delete();
-    })
-    .then(burger =>{
-      return res.sendJSON(204, data);
+      return res.sendJSON(204, burger.delete());
     })
     .catch(err => {
       return res.sendJSON(404,{ Message: `ID not found` });
@@ -63,6 +56,6 @@ router.put('/api/burgers', (req, res) => {
       return res.sendJSON(202,{ Message: `Successfully updated`, UpdatedValues: data });
     })
     .catch((err) =>{
-      return res.sendSON(404,{Message: `ID not found`});
+      return res.sendJSON(404,{Message: `ID not found`});
     });
 });
