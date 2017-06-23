@@ -1,6 +1,7 @@
 'use strict';
 
 const requestParse = require('./request-parse.js');
+const responseHelpers = require('./responseHelpers.js');
 
 const routes = {
   GET: {},
@@ -15,8 +16,7 @@ router.get = (pathname, callback) => {
   routes.GET[pathname] = callback;
 };
 
-
-router.post= (pathname, callback) => {
+router.post = (pathname, callback) => {
   routes.POST[pathname] = callback;
 };
 
@@ -29,26 +29,26 @@ router.put = (pathname, callback) => {
 };
 
 router.route = (req, res) => {
-  console.log('hit router.route:\n');
   requestParse(req, (err) => {
-    console.log('hit requestParse:\n');
+    responseHelpers(res);
+    if (req.url.pathname === '/api/opt') {
 
-    if(err){
-      res.writeHead(400, {
-        'Content-Type': 'text/plain',
-      });
-      res.write(err);
-      res.end();
-      return;
-    }
+      if(err){
+        res.writeHead(400);
+        res.end();
+        return;
+      }
 
-    let routeHandler = routes[req.method][req.url.pathname];
+      let routeHandler = routes[req.method][req.url.pathname];
 
-    if(routeHandler){
-      routeHandler(req, res);
+      if(routeHandler){
+        routeHandler(req, res);
+      } else {
+        res.writeHead(404);
+        res.end();
+      }
     } else {
-      res.writeHead(404);
-      res.end();
+      return res.sendStatus(404);
     }
   });
 };
