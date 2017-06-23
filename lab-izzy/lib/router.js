@@ -1,7 +1,7 @@
 'use strict';
 
 const requestParse = require('./request-parse.js');
-const responseHelpers = require('./response-helpers.js')
+const responseHelpers = require('./response-helpers.js');
 
 const routes = {
   GET: {},
@@ -16,11 +16,12 @@ router.get = (key, value) => {
   routes.GET[key] = value;
 };
 
-router.post= (pathname, callback) => {
+router.post = (pathname, callback) => {
   routes.POST[pathname] = callback;
 };
 
 router.delete = (pathname, callback) => {
+  console.log(pathname);
   routes.DELETE[pathname] = callback;
 };
 
@@ -30,6 +31,7 @@ router.put = (pathname, callback) => {
 
 router.route = (req, res) => {
 
+  responseHelpers(res);
   requestParse(req, (err) => {
 
     if(err){

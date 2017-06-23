@@ -14,6 +14,7 @@ class Insta {
   }
 
   update() {
+    console.log('stufffff', this)
     return storage.updateItem(this);
   }
 
@@ -23,6 +24,7 @@ class Insta {
 }
 
 Insta.findById = (id) => {
+  console.log(id);
   return storage.fetchItem(id)
   .then(data => {
     return new Insta(data.content, id);
