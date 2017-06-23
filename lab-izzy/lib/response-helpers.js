@@ -20,7 +20,6 @@ module.exports = (res) => {
     res.writeHead(status, {
       'Content-Type':'text/plain',
     });
-    console.log(data)
     res.write(JSON.stringify(data));
     res.end();
   };
