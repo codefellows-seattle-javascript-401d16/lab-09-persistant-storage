@@ -36,6 +36,7 @@ router.path = (req, res) => {
       res.end();
       return;
     }
+
     let routeHandler = routes[req.method][req.url.pathname];
 
     if (routeHandler) {

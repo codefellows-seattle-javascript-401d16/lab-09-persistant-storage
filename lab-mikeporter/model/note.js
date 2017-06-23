@@ -2,12 +2,6 @@
 
 const storage = require('../lib/storage.js');
 
-module.exports = function Note (id, creationDate, content) {
-  this.id = id;
-  this.creationDate = creationDate;
-  this.content = content;
-};
-
 class Note {
   constructor (id, creationDate, content) {
     this.id = id;
@@ -16,6 +10,7 @@ class Note {
   }
 
   save () {
+    console.log('saving', this);
     return storage.setItem(this);
   }
 
@@ -30,8 +25,8 @@ class Note {
 
 Note.findById = (id) => {
   return storage.fetchItem(id)
-    .then(data => {
-      return new Note(data.content, id);
+    .then((data) => {
+      return new Note(id, data.creationDate, data.content);
     });
 };
 

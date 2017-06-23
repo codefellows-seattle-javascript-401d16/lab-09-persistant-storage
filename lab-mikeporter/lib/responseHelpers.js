@@ -17,7 +17,7 @@ module.exports = (res) => {
   res.sendJSON = (status, json) => {
     res.writeHead(status, {
       'Content-Type': 'application/json',
-    })
+    });
     res.write(JSON.strigify(json));
     res.end();
   };
