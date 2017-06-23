@@ -1,0 +1,26 @@
+{
+  "name": "lab-oscar",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "expect": "^1.20.2",
+    "mocha": "^3.4.2",
+    "superagent": "^3.5.2"
+  },
+  "dependencies": {
+    "fs-extra": "^3.0.1",
+    "http": "0.0.0",
+    "uuid": "^3.1.0"
+  }
+}
