@@ -33,3 +33,13 @@ router.update('/api/user', (req, res) =>{
       res.sendStatus(404);
     });
 });
+router.delete('/api/user', (req, res) =>{
+  if(!req.url.query.id)
+    return res.sendStatus(400);
+  new User(req.body.username, req.body.pwd, req.body.fname, req.body.lname, req.url.query.id)
+    .delete()
+    .then(data => res.sendJSON(200, data))
+    .catch(err => {
+      res.sendStatus(404);
+    });
+});

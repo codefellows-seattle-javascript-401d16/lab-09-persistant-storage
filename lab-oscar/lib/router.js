@@ -21,7 +21,9 @@ router.get = (pathname, callback) => {
 router.update = (pathname, callback) => {
   routes.PUT[pathname] = callback;
 };
-
+router.delete = (pathname, callback) => {
+  routes.DELETE[pathname] = callback;
+};
 router.route = (req, res) => {
   responseHelpers(res);
 
