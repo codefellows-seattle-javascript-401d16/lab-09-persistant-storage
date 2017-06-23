@@ -1,7 +1,7 @@
 'use strict';
 
-const requestParse = require('./request-parse.js');
-const responseHelpers = require('./responseHelpers.js');
+const requestParse = require('../lib/request-parse.js');
+const responseHelpers = require('../lib/responseHelpers.js');
 
 const routes = {
   GET: {},
@@ -40,15 +40,14 @@ router.route = (req, res) => {
       }
 
       let routeHandler = routes[req.method][req.url.pathname];
-
       if(routeHandler){
         routeHandler(req, res);
       } else {
-        res.writeHead(404);
+        res.sendText(404, 'There are no routes for this method and pathname.');
         res.end();
       }
     } else {
-      return res.sendStatus(404);
+      return res.sendText(404, 'Must use pathname: /api/opt');
     }
   });
 };
