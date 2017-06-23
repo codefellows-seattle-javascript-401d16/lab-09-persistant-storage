@@ -57,5 +57,22 @@ describe('testing user routes', () => {
       });
     });
   });
-  // describe('testing÷')
+  describe('testing PUT /api/user', () => {
+    it('should update a record', (done) => {
+      superagent.put(`localhost:3000/api/user?id=57a51130-57cc-11e7-9785-d1fa5c9f6a12`)
+      .send({
+              username:'Oscar',
+              pwd:'NewPassword',
+              fname:'Luis',
+              lname:'cauich'
+            })
+      .end((err, res) => {
+        if(err) return done(err);
+        tempUser = res.body;
+        expect(res.status).toEqual(200);
+        expect(res.body.username).toEqual(tempUser.username);
+        done();
+      });
+    });
+  });
 });
