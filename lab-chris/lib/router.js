@@ -1,6 +1,8 @@
 'use strict';
 
 const requestParse = require('./request-parse.js');
+const responseHelpers = require('./response-helpers.js');
+
 const routes = {
   GET: {},
   PUT: {},
@@ -16,6 +18,7 @@ router.delete = (pathname, callback) => routes.DELETE[pathname] = callback;
 router.put = (pathname, callback) => routes.PUT[pathname] = callback;
 
 router.route = (req, res) => {
+  responseHelpers(res);
   requestParse(req, (err) => {
     if(err){
       res.writeHead(400);
