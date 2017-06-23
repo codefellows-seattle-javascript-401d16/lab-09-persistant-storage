@@ -15,7 +15,7 @@ module.exports = res => {
     });
     res.end();
   };
-  
+
   res.sendJSON = (status, data) => {
     res.writeHead(status, {
       'Content-Type': 'application/json',

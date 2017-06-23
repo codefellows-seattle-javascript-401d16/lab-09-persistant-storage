@@ -20,34 +20,25 @@ storage.fetchItem = id => {
           .then(data => Promise.resolve(data))
           .catch(() => Promise.reject(new Error('not found')));
       } else
-      return Promise.reject(new Error('not found'));
+        return Promise.reject(new Error('not found'));
     });
 };
 
 storage.updateItem = data => {
   let path = `${__dirname}/../data/${data.id}`;
-  if(data.id)
-    return fs.pathExists(path)
-      .then(exists => {
-        if(exists) {
-          return fs.writeJson(path)
-            .then(data => Promise.resolve(data))
-            .catch(() => Promise.reject(new Error('data must have id')));
-        } else {
-          return Promise.reject(new Error('data must have id'));
-        }
-      });
-  else
-    return Promise.reject(new Error('data must have id'));
+  return fs.writeJson(path, data)
+    .then(data => Promise.resolve(data))
+    .catch(() => Promise.reject(new Error('not found')));
 };
 
 storage.deleteItem = id => {
   let path = `${__dirname}/../data/${id}`;
-  fs.pathExists(path)
+  return fs.pathExists(path)
     .then(exists => {
       if(exists) {
-        fs.remove(path);
-        return Promise.resolve();
+        return fs.remove(path)
+          .then(() => Promise.resolve())
+          .catch(() => Promise.reject(new Error('not found')));
       }
       return Promise.reject(new Error('not found'));
     });

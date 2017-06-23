@@ -26,12 +26,12 @@ describe('Seahawk Constructor', () => {
 describe('/api/seahawks routes', () => {
   let tempSeahawk;
 
-  before((done) => {
+  before(done => {
     server.listen(PORT, () => done());
   });
-  after((done) => {
-    fs.emptyDir(`${__dirname}/../data`);
-    server.close(() => done());
+  after(done => {
+    fs.emptyDir(`${__dirname}/../data`)
+    .then(() => server.close(() => done()));
   });
 
   describe('POST', () => {
