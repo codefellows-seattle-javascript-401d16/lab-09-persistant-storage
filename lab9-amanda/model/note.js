@@ -22,7 +22,7 @@ class Note {
   }
 }
 
-Note .findById = (id) => {
+Note.findById = (id) => {
   return storage.fetchItem(id)
   .then(data => {
     return new Note(data.content, id)
