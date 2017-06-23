@@ -24,7 +24,7 @@ class User {
 User.findById = (id) => {
   return storage.fetchItem(id)
   .then(data =>{
-    return new User(id, data.username, data.pwd, data.fname, data.lname);
+    return data;
   });
 };
 //this code will be use to get put working

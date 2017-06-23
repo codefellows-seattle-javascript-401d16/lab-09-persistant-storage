@@ -18,7 +18,9 @@ router.post = (pathname, callback) => {
 router.get = (pathname, callback) => {
   routes.GET[pathname] = callback;
 };
-
+router.update = (pathname, callback) => {
+  routes.PUT[pathname] = callback;
+};
 
 router.route = (req, res) => {
   responseHelpers(res);

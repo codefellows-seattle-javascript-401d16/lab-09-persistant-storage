@@ -10,16 +10,22 @@ storage.setItem = (data) => {
   .then(() => data);
 };
 
+storage.updateItem = (data) => {
+  return fs.remove(`${__dirname}/../data/${data.id}`)
+  .then(() => {
+    fs.writeJson(`${__dirname}/../data/${data.id}`, data);
+  })
+  .then(()=>data);
+};
 storage.fetchItem = (id) => {
   return fs.readJson(`${__dirname}/../data/${id}`)
   // console.log('result',result);
   .then(packageObj => {
-    console.log(packageObj);
     return Promise.resolve(packageObj);
   })
   .catch(err => {
     return Promise.reject(new Error('not found'));
-  })
+  });
   // if(result)
   //
   //   return Promise.resolve(result);
