@@ -15,6 +15,9 @@ const router = module.exports = {};
 router.post = (pathname, callback) => {
   routes.POST[pathname] = callback;
 };
+router.get = (pathname, callback) => {
+  routes.GET[pathname] = callback;
+};
 
 
 router.route = (req, res) => {
@@ -32,8 +35,7 @@ router.route = (req, res) => {
     if(routeHandler){
       routeHandler(req, res);
     } else {
-      res.writeHead(404);
-      res.end();
+      res.sendStatus(404);
     }
   });
 };
