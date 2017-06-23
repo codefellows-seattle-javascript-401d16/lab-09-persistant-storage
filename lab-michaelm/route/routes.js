@@ -51,7 +51,10 @@ router.delete('/api/opt', (req, res) => {
   if(!req.url.query.id)
     return res.sendStatus(400);
   return OptIn.findById(req.url.query.id)
-  .then(() => res.sendStatus(202))
+  .then((user) => {
+    user.delete();
+    res.sendStatus(202);
+  })
   .catch(() => {
     res.sendStatus(404);
   });
