@@ -25,7 +25,6 @@ module.exports = (req, callback) => {
     });
 
     req.on('end', (err) => {
-      // try and parse the string if its header.content-type === application json
       req.text = text;
       try {
         req.body = JSON.parse(text);
