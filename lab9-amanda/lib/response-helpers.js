@@ -9,12 +9,16 @@ module.exports = (res) => {
     res.write(data);
     res.end();
   };
+
   res.sendStatus = (status) => {
-    res.writeHead(status, {
-      'Content-Type' : 'text/plain',
-    });
+    res.writeHead(status);
+    //   {
+    //   'Content-Type' : 'text/plain',
+    // }
+
     res.end();
   };
+
   res.sendJSON = (status, data) => {
     res.writeHead(status, {
       'Content-Type' : 'applicatin/json',

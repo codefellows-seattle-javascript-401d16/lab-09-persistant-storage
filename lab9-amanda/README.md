@@ -14,7 +14,10 @@ batter up! 3000
 /Users/amandakoster/Documents/Amanda/learnings/CodeFellows/401/lab-09-persistant-storage/lab9-amanda/route/note-router.js:29
     return res.sendStatus(400)
 
+    for delete, use fs.remove, that worked for me anyways
 
+    [10:36]
+    and test is passing
 
 
 ##To Submit this Assignment

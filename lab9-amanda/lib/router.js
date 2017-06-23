@@ -1,7 +1,6 @@
 'use strict';
 
 const requestParse = require('./request-parse.js');
-
 const responseHelpers = require('./response-helpers.js');
 
 const routes = {
@@ -31,6 +30,7 @@ router.put = (pathname, callback) => {
 
 router.route = (req, res) => {
 
+responseHelpers(res);
   requestParse(req, (err) => {
     if(err){
       res.writeHead(400);

@@ -23,6 +23,7 @@ class Note {
 }
 
 Note.findById = (id) => {
+  console.log(id, "id");
   return storage.fetchItem(id)
   .then(data => {
     return new Note(data.content, id)

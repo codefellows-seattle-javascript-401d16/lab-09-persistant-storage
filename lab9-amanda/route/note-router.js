@@ -10,21 +10,21 @@ var storage = {};
 
 //POST
 router.post('/api/notes', (req, res) => {
-  console.log(req.body);
-  if(!req.body.content) return res.sendStatus(400)
+  if(!req.body.content)
+    return res.sendStatus(400)
 
   let id = uuid.v1()
 
   new Note(req.body.content, id)
   .save()
-  .then(note => res.sendJSON(200, note))
+  .then(note  => {
+    res.sendJSON(200, note)})
   .catch(err => res.sendStatus(500))
 })
-  console.log('end post');
 
 //GET
 router.get('/api/notes', (req,res) => {
-    console.log(req.body)
+    console.log(req.url.query.id, "hello")
   if(!req.url.query.id)
     return res.sendStatus(400)
 
