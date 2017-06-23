@@ -2,6 +2,8 @@
 
 const requestParse = require('./request-parse.js');
 
+const responseHelpers = require('./response-helpers.js');
+
 const routes = {
   GET: {},
   PUT: {},
@@ -39,10 +41,10 @@ router.route = (req, res) => {
     let routeHandler = routes[req.method][req.url.pathname]
 
     if(routeHandler){
-      routeHandler(req, res)
+      routeHandler(req, res);
     } else {
-      res.writeHead(404)
-      res.end()
+      res.writeHead(404);
+      res.end();
     }
   })
 }

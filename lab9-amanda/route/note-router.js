@@ -24,18 +24,17 @@ router.post('/api/notes', (req, res) => {
 
 //GET
 router.get('/api/notes', (req,res) => {
-    console.log(req.body);
+    console.log(req.body)
   if(!req.url.query.id)
     return res.sendStatus(400)
 
-  Note.findById(req.url.query.id, id)
+  Note.findById(req.url.query.id)
   .then(note => res.sendJSON(200, note))
   .catch(err => {
     console.error(err)
     res.sendStatus(404)
 
-    .get()
-    .then(note => res.sendJSON(200, note))
-    .catch(err => res.sendStatus(500))
+    // .then(note => res.sendJSON(200, note))
+    // .catch(err => res.sendStatus(500))
   })
 })

@@ -1,3 +1,22 @@
+Questions:
+
+is this correct?
+http GET localhost:3000/api/notes id=79388411-57ba-11e7-851f-0fa847c34c8f
+
+Keep getting this error, unable to track it:
+http: error: ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',)) while doing GET request to URL: http://localhost:3000/api/notes
+~ $
+
+lab9-amanda [thursday !]$ node index.js
+end post
+batter up! 3000
+{}
+/Users/amandakoster/Documents/Amanda/learnings/CodeFellows/401/lab-09-persistant-storage/lab9-amanda/route/note-router.js:29
+    return res.sendStatus(400)
+
+
+
+
 ##To Submit this Assignment
 <!--
 fork this repository
