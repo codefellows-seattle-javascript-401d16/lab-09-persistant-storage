@@ -1,8 +1,10 @@
-# Lab 08 - single resource api
+# Lab 08 - persistent storage
 
 ## Functionality
 - crud api affecting a single resource
+- demonstrates utility of promises versus callbacks
 - create, read, update, destroy a user schema
+- utilize file system instead of json for storage
 
 ## Examples
 - POST http://localhost:8080/ { name, password, email } will create a user with those properties and generate an id
