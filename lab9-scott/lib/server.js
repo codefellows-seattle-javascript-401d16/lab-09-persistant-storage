@@ -49,7 +49,6 @@ router.put(`/api/climberprofile`, (req, res) =>{
     return res.sendStatus(400);
   }
   //data is passed in the body request as stringified json. Set the new req body to the profile at that id.
-  // climberPool[req.url.query.id] = req.body;
   return res.sendJSON(200, climberPool[req.url.query.id]);
 });
 

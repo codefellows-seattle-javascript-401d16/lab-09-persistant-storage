@@ -3,8 +3,16 @@
 const uuid = require('uuid/');
 
 //start of my object constructor on POST requests
-module.exports = function(age, type) {
-  this.id = uuid.v1();
-  this.age = age;
-  this.type = type;
-};
+
+class ClimberProfile {
+  constructor(age, type){
+    this.id = uuid.v1();
+    this.age = age;
+    this.type = type;
+  }
+  save(){
+    
+  }
+}
+
+module.exports = ClimberProfile;
