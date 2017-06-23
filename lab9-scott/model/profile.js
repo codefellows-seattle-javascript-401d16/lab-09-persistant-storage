@@ -7,7 +7,7 @@ class ClimberProfile {
   constructor(age, type, id){
     this.age = age;
     this.type = type;
-    this.id = id; //returns undefined on first creation. 
+    this.id = id; //returns undefined on first creation.
   }
 
   save(){
@@ -25,7 +25,7 @@ class ClimberProfile {
 }
 
 ClimberProfile.fetchById = (id) => {
-  return storage.fetchItem()
+  return storage.fetchItem(id)
   .then(data => {
     return new ClimberProfile(data.age, data.type, id);
   });

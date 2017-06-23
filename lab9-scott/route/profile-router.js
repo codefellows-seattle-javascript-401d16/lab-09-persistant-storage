@@ -17,6 +17,7 @@ router.post('/api/climberprofile', (req, res) => {
 });
 
 router.get('/api/climberprofile', (req, res) => {
+  console.log('prof route id: ', req.url.query.id);
   ClimberProfile.fetchById(req.url.query.id)
   .then(climberprofile => res.sendJSON(200, climberprofile))
   .catch(err => {
