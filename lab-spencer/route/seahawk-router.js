@@ -29,26 +29,17 @@ router.put('/api/seahawks', (req, res) => {
   if(!body.name || !body.height || !body.weight || !body.position || !body.picture)
     return res.sendStatus(400);
 
-    return Seahawk.findById(req.url.query.id)
-      .then(seahawk => {
-        seahawk = new Seahawk(body.name, body.height, body.weight, body.position, body.picture, req.url.query.id);
-        return seahawk.update()
-          .then(() => res.sendJSON(202, seahawk))
-          .catch(() => res.sendStatus(500));
-      })
-        .catch(err => {
-          if(err.message === 'not found')
-            res.sendStatus(404);
-        });
-
-  // new Seahawk(body.name, body.height, body.weight, body.position, body.picture, req.url.query.id)
-  // .update()
-  // .then(seahawk => res.sendJSON(202, seahawk))
-  // .catch((err) => {
-  //   if(err.message === 'not found')
-  //     return res.sendStatus(404);
-  //   return res.sendStatus(500);
-  // });
+  return Seahawk.findById(req.url.query.id)
+    .then(seahawk => {
+      seahawk = new Seahawk(body.name, body.height, body.weight, body.position, body.picture, req.url.query.id);
+      return seahawk.update()
+        .then(() => res.sendJSON(202, seahawk))
+        .catch(() => res.sendStatus(500));
+    })
+      .catch(err => {
+        if(err.message === 'not found')
+          res.sendStatus(404);
+      });
 });
 
 router.delete('/api/seahawks', (req, res) => {
