@@ -40,12 +40,6 @@ describe('testing note routes', function(){
 //END POST
 
 // GET
-
-// if(!storage[req.url.query.id]) {
-//   res.writeHead(404)
-//   res.write('not found')
-//   res.end()
-
   describe('testing GET /api/notes', () => {
     it('should respond with a note', (done) => {
       superagent.get(`localhost:3000/api/notes?id=${tempNote.id}`)
