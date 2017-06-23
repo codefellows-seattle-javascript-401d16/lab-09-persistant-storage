@@ -29,12 +29,12 @@ describe('testing hero routes', function(){
   });
 
   describe('Testing POST /api/heroes', () => {
-    it('should respond with a hero and 201', (done) => {
+    it('should respond with a hero and 200', (done) => {
       superagent.post('localhost:3000/api/heroes')
       .send(JSON.stringify({name : 'Matthew', species : 'Lion', profession : 'Shepherd', power : 'Gravity'}))
       .end((err, res) => {
         if (err) return done(err);
-        expect(res.status).toEqual(201);
+        expect(res.status).toEqual(200);
         expect(res.body.id).toExist();
         expect(res.body.name).toEqual('Matthew');
         expect(res.body.species).toEqual('Lion');

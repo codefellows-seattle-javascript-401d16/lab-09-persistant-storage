@@ -5,16 +5,14 @@ let fs = require('fs-extra');
 
 let storage = module.exports = {};
 
-const cache = {};
+// const cache = {};
 
 storage.setItem = (data) => {
   data.id = uuid.v1();
-  cache[data.id] = data;
-
-  // TODO: now that it has an id save it to ../data/${data.id} as json
+  // cache[data.id] = data;
   return fs.writeJson(`${__dirname}/../data/${data.id}`, data)
   .then(() => data)
-  .then(() => console.log(cache));
+  // .then(() => console.log(cache));
 };
 
 storage.fetchItem = (id) => {
@@ -30,15 +28,7 @@ storage.updateItem = (data) => {
   console.log('update item', data);
   if(data.id){
     fs.writeJson(`${__dirname}/../data/${data.id}`, data);
-
-    // fs.move(data,`${__dirname}/../data/${data.id}`, {overwrite: true}, err => {
-    //   if (err) return console.error(err);
-    // });
-    // cache[data.id] = data;
-    // let fileToUpdate;
     console.log('update data', data);
-
-
     return Promise.resolve(data);
   }
   return Promise.reject(new Error('data must have id'));
