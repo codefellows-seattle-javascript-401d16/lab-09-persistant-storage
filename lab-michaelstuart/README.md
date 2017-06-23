@@ -1,4 +1,4 @@
-# Lab 08 - persistent storage
+# Lab 09 - persistent storage
 
 ## Functionality
 - crud api affecting a single resource
