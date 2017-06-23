@@ -2,9 +2,7 @@
 
 const uuid = require('uuid');
 
-//TODO*DONE: Create a Object Constructor that creates a simple resource with at least 3 properties
-//TODO*DONE: An id property that is set to a unique node-uuid id is required
-//TODO*DONE: Also include two other properties of your choice (like name, creationDate, etc.)
+// TODO*DONE: create a constructor to module your resouce and put it in your model directory
 
 module.exports = class Task {
   constructor(taskName, xp, id){
