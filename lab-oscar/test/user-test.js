@@ -56,10 +56,18 @@ describe('testing user routes', () => {
         done();
       });
     });
+    it('should respond with a 400 bad request', (done) => {
+      superagent.post('localhost:3000/api/user')
+      .send({})
+      .end((err, res) => {
+        expect(res.status).toEqual(400);
+        done();
+      });
+    });
   });
   describe('testing PUT /api/user', () => {
     it('should update a record', (done) => {
-      superagent.put(`localhost:3000/api/user?id=57a51130-57cc-11e7-9785-d1fa5c9f6a12`)
+      superagent.put(`localhost:3000/api/user?id=${tempUser.id}`)
       .send({
               username:'Oscar',
               pwd:'NewPassword',
@@ -71,6 +79,25 @@ describe('testing user routes', () => {
         tempUser = res.body;
         expect(res.status).toEqual(200);
         expect(res.body.username).toEqual(tempUser.username);
+        done();
+      });
+    });
+    it('should respond with a 400 bad request', (done) => {
+      superagent.post('localhost:3000/api/user')
+      .send({})
+      .end((err, res) => {
+        expect(res.status).toEqual(400);
+        done();
+      });
+    });
+  });
+  describe('testing DELETE /api/user', () => {
+    it('should delete record', (done) => {
+      superagent.delete(`localhost:3000/api/user?id=${tempUser.id}`)
+      .end((err, res) => {
+        console.log(tempUser);
+        if(err) return done(err);
+        expect(res.status).toEqual(200);
         done();
       });
     });
