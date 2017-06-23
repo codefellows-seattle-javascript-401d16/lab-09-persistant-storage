@@ -4,7 +4,7 @@
   "description": "![cf](https://i.imgur.com/7v5ASc8.png) lab-09-persistant-storage",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -24,5 +24,8 @@
     "mocha": "^3.4.2",
     "npm": "^5.0.3",
     "superagent": "^3.5.2"
+  },
+  "dependencies": {
+    "uuid": "^3.1.0"
   }
 }

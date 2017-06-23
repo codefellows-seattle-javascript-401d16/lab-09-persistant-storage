@@ -4,15 +4,20 @@ const superagent = require('superagent');
 const expect = require('expect');
 const FBPost = require('../model/model.js');
 const server = require('../lib/server.js');
+const fs = require('fs-extra');
 const uuid = require('uuid');
 
-let friendPost = new FBPost('friendPost', 'cat');
+let testFBPost = new FBPost('friendPost', 'cat');
+
 describe('testing post routes', function() {
   before((done) => {
     server.listen(3000, () => done());
   });
   after((done) => {
     server.close(() => done());
+  });
+  after(() => {
+    fs.remove(`${__dirname}/../data`);
   });
   let testId;
   describe('testing POST /api/posts', () => {
@@ -47,7 +52,7 @@ describe('testing post routes', function() {
         .send({userName : 'sally', content: 'dog'})
         .end((err, res) => {
           console.log('error', err);
-          
+
           if (err) return done(err);
           expect(res.status).toEqual(202);
           expect(res.body.userName).toEqual('sally');
