@@ -1,7 +1,7 @@
-
 'use strict';
 
 module.exports = (res) => {
+
   res.sendText = (status, data) => {
     res.writeHead(status, {
       'Content-Type': 'text/plain',

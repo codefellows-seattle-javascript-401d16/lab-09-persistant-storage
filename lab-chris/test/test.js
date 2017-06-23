@@ -3,6 +3,7 @@
 const superagent = require('superagent');
 const expect = require('expect');
 // const fs = require('fs-extra');
+// const Player = require('../model/player.js');
 const server = require('../lib/server.js');
 let tempPlayer;
 
@@ -20,7 +21,7 @@ describe('testing player routes', function(){
         .send({name: 'Messi', team: 'Barcelona', position: 'GOAT'})
         .end((err, res) => {
           if (err) return done(err);
-          expect(res.status).toEqual(201);
+          expect(res.status).toEqual(200);
           expect(res.body.id).toExist();
           expect(res.body.name).toEqual('Messi');
           tempPlayer = res.body;

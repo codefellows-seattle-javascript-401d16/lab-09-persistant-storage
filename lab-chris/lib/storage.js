@@ -5,19 +5,15 @@ let fs = require('fs-extra');
 
 let storage = module.exports = {};
 
-const cache = {};
-
 storage.setItem = (data) => {
   data.id = uuid.v1();
-  cache[data.id] = data;
   return fs.writeJson(`${__dirname}/../data/${data.id}`, data)
     .then(() => data);
 };
 
 storage.fetchItem = (id) => {
-  console.log('cache', cache);
-  console.log('id', id);
-  let result = cache[id];
+  let result = fs.readJson(`${__dirname}/../data/${id}`);
+  console.log(result);
   if(result)
     return Promise.resolve(result);
   return Promise.reject(new Error('not found'));
@@ -25,15 +21,20 @@ storage.fetchItem = (id) => {
 
 storage.updateItem = (data) => {
   if(data.id){
-    cache[data.id] = data;
+    fs.writeJson(`${__dirname}/../data/${data.id}`, data);
     return Promise.resolve(data);
   }
-  return Promise.reject(new Error('data id does not exist'));
+  return Promise.reject(new Error('data must have id'));
 };
 
 storage.deleteItem = (id) => {
-  if (cache[id]){
-    delete cache[id];
+  if (id){
+    fs.remove(`${__dirname}/../data/${id}`)
+      .then(() => {
+      })
+      .catch((err) => {
+        console.error(err);
+      });
     return Promise.resolve();
   }
   return Promise.reject(new Error('not found'));

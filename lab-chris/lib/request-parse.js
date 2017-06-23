@@ -14,6 +14,7 @@ module.exports = (req, callback) => {
     });
 
     req.on('end', (err) => {
+      if(err) return callback(err);
       req.text = text;
       try {
         req.body = JSON.parse(text);

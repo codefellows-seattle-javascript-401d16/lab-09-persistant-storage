@@ -1,15 +1,15 @@
 'use strict';
 
-const uuid = require('uuid');
 const storage = require('../lib/storage.js');
 
 class Player {
-  constructor(name, team, position) {
+  constructor(name, team, position, id) {
     this.name = name;
     this.team = team;
     this.position = position;
-    this.id = uuid.v1();
+    this.id = id;
   }
+
   save(){
     return storage.setItem(this);
   }
@@ -26,8 +26,9 @@ class Player {
 Player.findById = (id) => {
   return storage.fetchItem(id)
     .then(data => {
-      return new Player(data.name, data.team. data.postion, id);
-    });
+      return new Player(data.name, data.team. data.position, data.id);
+    })
+    .catch(err => Promise.reject(err));
 };
 
 module.exports = Player;
