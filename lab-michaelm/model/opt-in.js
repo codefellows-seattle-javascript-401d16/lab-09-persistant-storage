@@ -24,7 +24,7 @@ class OptIn {
 OptIn.findById= (id) => {
   return storage.fetchItem(id)
   .then(data => {
-    return new OptIn(id, data.name, data.age);
+    return new OptIn(data.name, data.age, id);
   });
 };
 

@@ -53,12 +53,12 @@ router.get('/api/opt', (req, res) => {
 router.delete('/api/opt', (req, res) => {
   responseHelpers(res);
   if(!req.url.query.id)
-    return res.sendText(400, 'No id provided, how am I supposed to know what data to get?');
-  OptIn.findById(req.url.query.id)
+    return res.sendStatus(400);
+  return OptIn.findById(req.url.query.id)
   .then(user => {
     return user.delete();
   })
-  .then(res.sendText(204, 'Success!'))
+  .then(res.sendStatus(204))
   .catch(err => {
     res.sendStatus(404);
     console.log(err);

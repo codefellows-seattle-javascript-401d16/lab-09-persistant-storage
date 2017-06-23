@@ -25,14 +25,13 @@ storage.updateItem = (data) => {
   return Promise.reject(new Error('data must have id'));
 };
 
-storage.deleteItem = (id) => {
-  if (id){
-    fs.remove(`${__dirname}/../data/${id}`)
-    .then(() => {
-      console.log('Success!');
-    })
+storage.deleteItem = (data) => {
+  if (data){
+    fs.remove(`${__dirname}/../data/${data.id}`)
     .catch((err) => {
       console.error(err);
     });
+    return Promise.resolve();
   }
+  return Promise.reject(new Error('not found'));
 };
