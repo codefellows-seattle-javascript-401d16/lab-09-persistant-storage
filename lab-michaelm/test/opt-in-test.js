@@ -109,6 +109,7 @@ describe('testing opt routes', function(){
     it('should respond with 404 not found', (done) => {
       superagent.delete(`localhost:3000/api/opt?id=1`)
       .end((err, res) => {
+        console.log('res.statusCode:\n', res.statusCode);
         expect(res.statusCode).toEqual(404);
         done();
       });

@@ -11,10 +11,9 @@ router.post('/api/opt', (req, res) => {
   }
   new OptIn(req.body.name, req.body.age)
   .save()
-  .then(user => res.sendJSON(200, user))
-  .catch(err => {
+  .then(user => res.sendJSON(201, user))
+  .catch(() => {
     res.sendStatus(500);
-    console.log(err);
   });
 });
 
@@ -28,13 +27,11 @@ router.put('/api/opt', (req, res) => {
     user.name = req.body.name;
     user.age = req.body.age;
     user.id = req.body.id;
-    console.log(user);
     return user.update();
   })
   .then(user => res.sendJSON(202, user))
-  .catch((err) => {
+  .catch(() => {
     res.sendStatus(404);
-    console.log(err);
   });
 });
 
@@ -42,11 +39,10 @@ router.get('/api/opt', (req, res) => {
   responseHelpers(res);
   if(!req.url.query.id)
     return res.sendStatus(400);
-  OptIn.findById(req.url.query.id)
+  return OptIn.findById(req.url.query.id)
   .then(user => res.sendJSON(200, user))
-  .catch(err => {
-    console.error(err);
-    res.sendText(404, 'Could not find user.');
+  .catch(() => {
+    res.sendStatus(404);
   });
 });
 
@@ -55,12 +51,8 @@ router.delete('/api/opt', (req, res) => {
   if(!req.url.query.id)
     return res.sendStatus(400);
   return OptIn.findById(req.url.query.id)
-  .then(user => {
-    return user.delete();
-  })
-  .then(res.sendStatus(204))
-  .catch(err => {
+  .then(() => res.sendStatus(202))
+  .catch(() => {
     res.sendStatus(404);
-    console.log(err);
   });
 });
