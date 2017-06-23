@@ -4,7 +4,7 @@ const superagent = require('superagent');
 const expect = require('expect');
 const Hero = require('../model/hero.js');
 const server = require('../lib/server.js');
-// let tempNote;
+const fs = require('fs-extra');
 
 let tempHero;
 

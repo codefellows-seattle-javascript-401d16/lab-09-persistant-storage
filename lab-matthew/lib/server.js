@@ -9,7 +9,7 @@ const router = require('./router.js');
 
 
 // require our routes
-const router = require('./router.js');
+require('../route/hero-router.js');
 
 // create our server
 const server = module.exports = http.createServer(router.route);

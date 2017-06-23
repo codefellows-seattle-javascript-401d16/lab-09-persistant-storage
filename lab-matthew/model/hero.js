@@ -2,17 +2,6 @@
 
 const storage = require('../lib/storage.js');
 
-// module.exports = function Character(name, species, profession, power){
-//   this.name = name;
-//   this.species = species;
-//   this.profession = profession;
-//   this.power = power;
-// };
-//
-// Character.prototype.save = () =>{
-//
-// };
-
 class Hero {
   constructor(name, species, profession, power, id){
     this.name = name;
@@ -38,7 +27,7 @@ class Hero {
 Hero.findById = (id) => {
   return storage.fetchItem(id)
   .then(data => {
-    return new Hero(data.content, id);
+    return new Hero(data.name, data.species, data.profession, data.power, id);
   });
 };
 

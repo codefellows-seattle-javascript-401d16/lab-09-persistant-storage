@@ -1,7 +1,7 @@
 'use strict';
 
 const requestParse = require('./request-parse.js');
-const responseHelpers = require('./request-helpers.js');
+const responseHelpers = require('./response-helpers.js');
 const routes = {
   GET: {},
   PUT: {},
