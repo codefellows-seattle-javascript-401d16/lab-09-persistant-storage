@@ -8,24 +8,24 @@ class OptIn {
     this.age = age;
   }
 
-  save(){
+  save() {
     return storage.setItem(this);
   }
 
-  update(){
+  update() {
     return storage.updateItem(this);
   }
 
-  delete(){
+  delete() {
     return storage.deleteItem(this);
   }
 }
 
-OptIn.findById= (id) => {
+OptIn.findById = (id) => {
   return storage.fetchItem(id)
-  .then(data => {
-    return new OptIn(data.name, data.age, id);
-  });
+    .then(data => {
+      return new OptIn(data.name, data.age, id);
+    });
 };
 
 module.exports = OptIn;

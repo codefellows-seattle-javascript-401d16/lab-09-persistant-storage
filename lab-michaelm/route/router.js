@@ -33,14 +33,14 @@ router.route = (req, res) => {
     responseHelpers(res);
     if (req.url.pathname === '/api/opt') {
 
-      if(err){
+      if (err) {
         res.writeHead(400);
         res.end();
         return;
       }
 
       let routeHandler = routes[req.method][req.url.pathname];
-      if(routeHandler){
+      if (routeHandler) {
         routeHandler(req, res);
       } else {
         res.sendText(404, 'There are no routes for this method and pathname.');

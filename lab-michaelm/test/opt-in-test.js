@@ -115,5 +115,4 @@ describe('testing opt routes', function(){
       });
     });
   });
-
 });
