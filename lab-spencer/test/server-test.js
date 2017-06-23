@@ -7,31 +7,36 @@ const Seahawk = require('../model/seahawk.js');
 const fs = require('fs-extra');
 const PORT = process.env.PORT || 3000;
 
-describe('Seahawk Constructor', () => {
-  it('Should return a Seahawk Object', done => {
-    new Seahawk('Spencer Gietzen', '5\'10"', '150', 'TB', 'rand/pic.png')
-      .save()
-      .then(data => {
-        expect(data.id).toExist();
-        expect(data.name).toEqual('Spencer Gietzen');
-        expect(data.height).toEqual('5\'10"');
-        expect(data.weight).toEqual('150');
-        expect(data.position).toEqual('TB');
-        expect(data.picture).toEqual('rand/pic.png');
-        done();
-      });
-  });
-});
+
 
 describe('/api/seahawks routes', () => {
   let tempSeahawk;
 
   before(done => {
-    server.listen(PORT, () => done());
+    fs.ensureDir(`${__dirname}/../data`)
+    .then(() => {
+      server.listen(PORT, () => done());
+    });
   });
   after(done => {
     fs.emptyDir(`${__dirname}/../data`)
     .then(() => server.close(() => done()));
+  });
+
+  describe('Seahawk Constructor', () => {
+    it('Should return a Seahawk Object', done => {
+      new Seahawk('Spencer Gietzen', '5\'10"', '150', 'TB', 'rand/pic.png')
+        .save()
+        .then(data => {
+          expect(data.id).toExist();
+          expect(data.name).toEqual('Spencer Gietzen');
+          expect(data.height).toEqual('5\'10"');
+          expect(data.weight).toEqual('150');
+          expect(data.position).toEqual('TB');
+          expect(data.picture).toEqual('rand/pic.png');
+          done();
+        });
+    });
   });
 
   describe('POST', () => {
