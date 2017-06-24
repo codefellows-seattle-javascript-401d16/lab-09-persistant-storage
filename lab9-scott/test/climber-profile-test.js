@@ -49,7 +49,7 @@ describe(`Testing all climber profile routes`, function(){
   describe(`Testing GET method on /api/climberprofile`, () => {
     describe(`Testing if the request was successful`, () => {
       it(`should respond with a 200 and specific profile`, (done) => {
-        superagent.get(`localhost:3000/api/climberprofile?id=${res.body.id}`)
+        superagent.get(`localhost:3000/api/climberprofile?id=10a4c780-5911-11e7-9505-b18b3ea6f281`)
           .end((err, res) => {
             if (err) return done(err);
             expect(res.status).toEqual(200);

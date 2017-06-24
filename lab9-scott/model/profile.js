@@ -27,7 +27,7 @@ class ClimberProfile {
 ClimberProfile.fetchByID = (id) => {
   return storage.fetchItem(id)
     .then(data => {
-      console.log(data);
+      console.log('fetched item: ',data);
       return data;
     });
 };
