@@ -1,6 +1,6 @@
 'use strict';
 
-const storage = require('../data/storage.js');
+const storage = require('../lib/storage.js');
 
 //start of my object constructor to manage all object requests
 class ClimberProfile {
@@ -27,7 +27,8 @@ class ClimberProfile {
 ClimberProfile.fetchByID = (id) => {
   return storage.fetchItem(id)
     .then(data => {
-      return new ClimberProfile(data.age, data.type, id);
+      console.log(data);
+      return data;
     });
 };
 

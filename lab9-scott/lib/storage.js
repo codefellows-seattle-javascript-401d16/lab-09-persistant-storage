@@ -1,7 +1,8 @@
 'use strict';
 
 let uuid = require('uuid');
-let cache = {};
+let fs = require('fs-extra');
+// let cache = {};
 
 let storage = module.exports = {};
 
@@ -10,13 +11,15 @@ let storage = module.exports = {};
 storage.setItem = (data) => {
   //creating the id in our storage because typically the db create them (ie mongo)
   data.id = uuid.v1();
-  cache[data.id] = data;
-  return Promise.resolve(data);
+  // cache[data.id] = data;
+  return fs.writeJson(`${__dirname}/../data/${data.id}`, data)
+    .then(() => data);
 };
 
 storage.fetchItem = (id) => {
-  let result = cache[id];
-  if (result) return Promise.resolve(result);
+  let pathExist = fs.pathExists(`${__dirname}/../data/${id}`);
+  let result = fs.readJson(`${__dirname}/../data/${id}`);
+  if (pathExist) return Promise.resolve(result);
   return Promise.reject(new Error('profile not found'));
 };
 
