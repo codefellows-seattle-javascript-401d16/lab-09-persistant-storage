@@ -14,7 +14,7 @@ class ClimberProfile {
     return storage.setItem(this);
   }
 
-//udpate doesnt take in this.id because it does that inside the function
+  //udpate doesnt take in this.id because it does that inside the function
   update() {
     return storage.updateItem(this);
   }
@@ -24,11 +24,11 @@ class ClimberProfile {
   }
 }
 
-ClimberProfile.fetchById = (id) => {
+ClimberProfile.fetchByID = (id) => {
   return storage.fetchItem(id)
-  .then(data => {
-    return new ClimberProfile(data.age, data.type, id);
-  });
+    .then(data => {
+      return new ClimberProfile(data.age, data.type, id);
+    });
 };
 
 module.exports = ClimberProfile;

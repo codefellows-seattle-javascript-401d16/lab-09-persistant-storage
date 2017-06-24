@@ -16,12 +16,10 @@ module.exports = (req, callback) => {
       body += buffer.toString();
     });
     //try to parse the string if the header content type is application/json
-    req.on('end', (err) => {
+    req.on('end', () => {
       req.text = body;
-      console.log('req text: ',req.text);
       try {
         req.body = JSON.parse(body);
-        console.log('req body: ',req.body);
         callback(null);
       } catch (err){
         callback(err);
