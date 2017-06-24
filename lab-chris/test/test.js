@@ -2,8 +2,6 @@
 
 const superagent = require('superagent');
 const expect = require('expect');
-// const fs = require('fs-extra');
-// const Player = require('../model/player.js');
 const server = require('../lib/server.js');
 let tempPlayer;
 
@@ -39,7 +37,7 @@ describe('testing player routes', function(){
     });
   });
 
-  describe('testing GET /api/soccer', () => {
+  describe('testing GET /api/player', () => {
     it('should respond with a 200', (done) => {
       superagent.get(`localhost:3000/api/player?id=${tempPlayer.id}`)
         .end((err, res) => {
@@ -72,13 +70,14 @@ describe('testing player routes', function(){
 
   describe('testing PUT /api/player', () => {
     it('should respond with a 202', (done) => {
+
       superagent.put(`localhost:3000/api/player?id=${tempPlayer.id}`)
-        .send({name: 'Messi', team: 'Barcelona', position: 'GOAT'})
+        .send({name: 'Ronaldo', team: 'Real Mardid', position: 'Scores the goals'})
         .end((err, res) => {
           if (err) return done(err);
           expect(res.status).toEqual(202);
           expect(res.body.id).toExist();
-          expect(res.body.name).toEqual('Messi');
+          expect(res.body.name).toEqual('Ronaldo');
           tempPlayer = res.body;
           done();
         });
@@ -105,8 +104,7 @@ describe('testing player routes', function(){
     });
 
     it('should respond with a 404', (done) => {
-      superagent.delete(`localhost:3000/api/player?i`)
-        .send({id: 777})
+      superagent.delete(`localhost:3000/api/player?id=broke`)
         .end((err, res) => {
           expect(res.status).toEqual(404);
           done();

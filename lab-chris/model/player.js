@@ -26,9 +26,8 @@ class Player {
 Player.findById = (id) => {
   return storage.fetchItem(id)
     .then(data => {
-      return new Player(data.name, data.team. data.position, data.id);
-    })
-    .catch(err => Promise.reject(err));
+      return Promise.resolve(data);
+    });
 };
 
 module.exports = Player;

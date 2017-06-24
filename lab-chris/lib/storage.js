@@ -12,11 +12,12 @@ storage.setItem = (data) => {
 };
 
 storage.fetchItem = (id) => {
-  let result = fs.readJson(`${__dirname}/../data/${id}`);
-  console.log(result);
-  if(result)
-    return Promise.resolve(result);
-  return Promise.reject(new Error('not found'));
+  return fs.readJson(`${__dirname}/../data/${id}`)
+    .then( (data) => {
+      return Promise.resolve(data);
+    })
+    .catch(() => Promise.reject(new Error('not found'))
+    );
 };
 
 storage.updateItem = (data) => {
@@ -30,8 +31,6 @@ storage.updateItem = (data) => {
 storage.deleteItem = (id) => {
   if (id){
     fs.remove(`${__dirname}/../data/${id}`)
-      .then(() => {
-      })
       .catch((err) => {
         console.error(err);
       });

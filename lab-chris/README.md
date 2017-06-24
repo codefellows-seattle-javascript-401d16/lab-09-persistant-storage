@@ -1,8 +1,8 @@
 **Author** Christopher Janousek
 
-**Date** June 21 2017
+**Date** June 22 2017
 
 ## Description
-401 JS -- lab 08 single resource API
+401 JS -- lab 09 persistent storage
 
-Started with basically taking the demo code and making sure everything was set up properly. Added tests for all the routes and methods. Got the put method coded in and after some tinkering got the put tests to pass. Got the delete method down and got the tests to pass. Now that I know everything works with what Duncan had its time to break everything and add my constructor and change the routes. Everything is changed but most of my tests are failing. After much frustration I finally got everything to pass.
+Took my lab 8 stuff and copied it over. Changed everything the to the same format as demo code. Got my put tests to pass. Most everything else fails. Got a few of the bad paths to pass. Stuck at 5 passing and 5 failing. After some help from the TAs I got my get tests to pass and after some more guidance finally got delete to work too. Everything passes.
