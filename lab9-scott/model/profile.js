@@ -28,8 +28,8 @@ ClimberProfile.fetchByID = (id) => {
   return storage.fetchItem(id)
     .then(data => {
       console.log('fetched item: ',data);
-      return data;
-    });
+      return new ClimberProfile(data.age, data.type, id);
+    }); 
 };
 
 module.exports = ClimberProfile;
