@@ -4,7 +4,7 @@ const superagent = require('superagent');
 const expect = require('expect');
 const server = require('../lib/server.js');
 const fs = require('fs-extra');
-let tempProfile;
+// let tempProfile;
 
 //this starts and stops the server for each test.
 describe(`Testing all climber profile routes`, function(){
@@ -15,9 +15,9 @@ describe(`Testing all climber profile routes`, function(){
     server.close(() => done());
   });
   //!!comment in when I want to clear the dir!!
-  // after(() => {
-  //   return fs.emptyDir(`${__dirname}/../data/`);
-  // });
+  after(() => {
+    return fs.emptyDir(`${__dirname}/../data/`);
+  });
 
   describe(`Testing POST method on /api/climberprofile`, () =>{
     describe(`Testing successful profile creation`, () => {
