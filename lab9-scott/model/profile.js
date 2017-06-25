@@ -14,22 +14,24 @@ class ClimberProfile {
     return storage.setItem(this);
   }
 
-  //udpate doesnt take in this.id because it does that inside the function
-  update() {
-    return storage.updateItem(this);
-  }
 
-  delete() {
-    return storage.deleteItem(this.id);
-  }
 }
+
+ClimberProfile.delete = (id) => {
+  return storage.deleteItem(id);
+};
+//udpate doesnt take in this.id because it does that inside the function
+ClimberProfile.update = (req) => {
+  console.log('did i make it to profile update?');
+  return storage.updateItem(req);
+};
 
 ClimberProfile.fetchByID = (id) => {
   return storage.fetchItem(id)
     .then(data => {
       console.log('fetched item: ',data);
       return new ClimberProfile(data.age, data.type, id);
-    }); 
+    });
 };
 
 module.exports = ClimberProfile;

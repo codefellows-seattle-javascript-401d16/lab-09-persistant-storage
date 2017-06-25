@@ -23,20 +23,27 @@ storage.fetchItem = (id) => {
   return Promise.reject(new Error('profile not found'));
 };
 
-storage.updateItem = (data) => {
-  if(data.id){
-    cache[data.id] = data;
-    return Promise.resolve(data);
+storage.updateItem = (req) => {
+  let pathExist = fs.pathExists(`${__dirname}/../data/${req.url.query.id}`);
+  if(pathExist){
+    // console.log('req query id: ', req.url.query.id);
+    // console.log('req body age: ', req.body);
+    let updatedBody = req.body;
+    let result = fs.outputFile(`${__dirname}/../data/${req.url.query.id}`, updatedBody);
+    return Promise.resolve(result);
   }
-  return Promise.reject(new Error('profile not in database'));
+  return Promise.reject(new Error('climber profile not in database'));
 };
 
 storage.deleteItem = (id) => {
+  console.log('id : ', id);
+  let pathExist = fs.pathExists(`${__dirname}/../data/${id}`);
+  if(pathExist){
+    console.log(`${__dirname}/../data/${id}`);
+    let result = fs.remove(`${__dirname}/../data/${id}`);
+    return Promise.resolve(result);
   // can't set cache[id] to a var because 'use strict' doesnt allow deletion of local variables.
-  if (cache[id]) {
-    delete cache[id];
-    //still have to resolve because it was true but since we deleted it there's no data to really resolve.
-    return Promise.resolve();
   }
-  return Promise.rejecct(new Error('profile not found for delete'));
+  console.log('did i make it to here????');
+  return Promise.reject(new Error('profile not found for deletion'));
 };
