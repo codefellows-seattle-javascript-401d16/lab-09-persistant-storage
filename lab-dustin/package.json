@@ -1,0 +1,23 @@
+{
+  "name": "lab-dustin",
+  "version": "1.0.0",
+  "description": "-Sets a route for clients to do CRUD operations. If they input valid data, the server will send back valid data.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "expect": "^1.20.2"
+  },
+  "devDependencies": {
+    "expect": "^1.20.2",
+    "fs": "0.0.1-security",
+    "fs-extra": "^3.0.1",
+    "mocha": "^3.4.2"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "ISC"
+}
