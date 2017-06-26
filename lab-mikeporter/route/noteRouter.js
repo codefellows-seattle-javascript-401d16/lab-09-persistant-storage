@@ -12,8 +12,12 @@ router.post('/api/notes', (req, res) => {
   let content = req.body.content;
   new Note(id, date, content)
     .save()
-    .then((note) => res.sendJSON(201, note))
-    .catch((err) => res.sendStatus(500));
+    .then((note) => {
+      res.sendJSON(201, note);
+    })
+    .catch((err) => {
+      res.sendStatus(500);
+    });
 });
 
 router.get('/api/notes', (req, res) => {

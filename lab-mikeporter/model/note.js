@@ -10,7 +10,6 @@ class Note {
   }
 
   save () {
-    console.log('saving', this);
     return storage.setItem(this);
   }
 
