@@ -9,7 +9,7 @@ const router = require('./router.js');
 
 
 // require our routes
-require('../route/note-router.js')
+require('../route/game-router.js')
 
 // create server
-const server = module.exports = http.createServer(router.route);
+module.exports = http.createServer(router.route);
