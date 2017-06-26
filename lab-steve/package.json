@@ -1,0 +1,31 @@
+{
+  "name": "lab-09-persistant-storage",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "start": "nodemon index.js",
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/0smium/lab-09-persistant-storage.git"
+  },
+  "author": "Steve",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/0smium/lab-09-persistant-storage/issues"
+  },
+  "homepage": "https://github.com/0smium/lab-09-persistant-storage#readme",
+  "devDependencies": {
+    "eslint": "^4.1.1",
+    "expect": "^1.20.2",
+    "mocha": "^3.4.2",
+    "superagent": "^3.5.2"
+  },
+  "dependencies": {
+    "fs-extra": "^3.0.1",
+    "uuid": "^3.1.0"
+  }
+}
