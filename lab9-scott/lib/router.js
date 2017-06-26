@@ -27,7 +27,6 @@ router.delete = (pathname, callback) => {
 
 //this is the main logic on where to route based on the req url
 router.route = (req, res) => {
-  console.log('req url on router: ', req.url);
   //bringing in the response helpers to modify the responses.
   responseHelpers(res);
   //bring in the parsed url from requestParse file

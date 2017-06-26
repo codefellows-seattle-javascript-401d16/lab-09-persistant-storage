@@ -18,7 +18,6 @@ router.post('/api/climberprofile', (req, res) => {
 
 router.get('/api/climberprofile', (req, res) => {
   if(!req.url.query.id) return res.sendStatus(400);
-  console.log('prof route id: ', req.url.query.id);
   ClimberProfile.fetchByID(req.url.query.id)
     .then(climberprofile => res.sendJSON(200, climberprofile))
     .catch(err => {
@@ -28,29 +27,21 @@ router.get('/api/climberprofile', (req, res) => {
 });
 
 router.put('/api/climberprofile', (req, res) => {
-  console.log('breakpoint 1');
   if(!req.url.query.id) return res.sendStatus(400);
-  console.log('breakpoint 2');
-  console.log('req body', req.body);
-  console.log('req body id', req.body.id);
-  console.log('req body age', req.body.age);
-  console.log('req url', req.url);
   ClimberProfile.update(req)
     .then(updatedClimberProfile => res.sendJSON(202, updatedClimberProfile))
     .catch(err => {
-      console.error(err);
+      console.error(err.status);
       res.sendStatus(400);
     });
-  console.log('breakpoint 3');
 });
 
 router.delete('/api/climberprofile', (req, res) => {
-  console.log('delete id: ', req.url.query.id);
   let id = req.url.query.id;
   ClimberProfile.delete(id)
     .then(deleted => res.sendText(204, deleted))
     .catch(err => {
-      console.error(err);
+      console.error(err.status);
       res.sendStatus(404);
     });
 });
