@@ -4,28 +4,37 @@ let fs = require('fs-extra');
 
 let storage = module.exports = {};
 
-const cache = {};
-
 storage.setItem = (data) => {
-  cache[data.id] = data.id;
   return fs.writeJson(`${__dirname}/../data/${data.id}`, data)
     .then(() => data);
 };
 
 storage.fetchItem = (id) => {
-  let result = cache[id];
-  if (result) return Promise.resolve(result);
-  return Promise.reject(new Error('404 Not Found'));
+  return fs.readJson(`${__dirname}/../data/${id}`)
+    .then((data) => {
+      return Promise.resolve(data);
+    })
+    .catch(() => {
+      return Promise.reject(new Error('404 Not Found'));
+    });
 };
 
 storage.updateItem = (data) => {
-  if(data.id && data.creationDate){
-    cache[data.id] = data;
-    cache[data.creationDate] = creationDate;
+  if(data.id && data.creationDate && data.content){
+    return fs.writeJson(`${__dirname}/../data/${data.id}`, data)
+      .then(() => data)
+      .catch(() => {
+        return Promise.reject(new Error('404 Not Found'));
+      });
   }
-
+  return Promise.reject(new Error('Data must have content and a creationDate'));
 };
 
-storage.deleteItem = (data) => {
-
+storage.deleteItem = (id) => {
+  return fs.remove(`${__dirname}/../data/${id}`)
+    .then(() => data)
+    .catch(() => {
+      console.log('overhere')
+      return Promise.reject(new Error('404 Not Found'));
+    });
 };

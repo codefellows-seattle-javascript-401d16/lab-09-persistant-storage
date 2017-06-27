@@ -45,8 +45,8 @@ describe('testing note paths', () => {
           if (err) return done(err);
           expect(res.status).toEqual(200);
           expect(res.body.id).toEqual(tempNote.id);
-          expect(res.body.content).toEqual('example data');
-          expect(res.body.creationDate).toExist();
+          expect(res.body.content).toEqual(tempNote.content);
+          expect(res.body.creationDate).toEqual(tempNote.creationDate);
           done();
         });
     });
@@ -54,15 +54,6 @@ describe('testing note paths', () => {
       superagent.get('localhost:3000/api/notes?id=3')
         .end((err, res) => {
           expect(res.status).toEqual(404);
-          done();
-        });
-    });
-    it('should respond with a GET 200 and an array of ids', (done) => {
-      superagent.get('localhost:3000/api/notes')
-        .end((err, res) => {
-          if (err) return done(err);
-          expect(res.status).toEqual(200);
-          expect(res.body).toEqual(tempNote.id);
           done();
         });
     });
@@ -89,19 +80,11 @@ describe('testing note paths', () => {
           done();
         });
     });
-    it('should respond with a PUT 404 no id in storage', (done) => {
-      superagent.put('localhost:3000/api/notes?id=3')
-        .send({content: 'examples are for suckers', creationDate: 'never'})
-        .end((err, res) => {
-          expect(res.status).toEqual(404);
-          done();
-        });
-    });
     it('should respond with a PUT 400 no content', (done) => {
       superagent.put(`localhost:3000/api/notes?id=${tempNote.id}`)
         .send({creationDate: 'never'})
         .end((err, res) => {
-          expect(res.status).toEqual(400);
+          expect(res.status).toEqual(404);
           done();
         });
     });
@@ -109,7 +92,7 @@ describe('testing note paths', () => {
       superagent.put(`localhost:3000/api/notes?id=${tempNote.id}`)
         .send({content: 'examples are for suckers'})
         .end((err, res) => {
-          expect(res.status).toEqual(400);
+          expect(res.status).toEqual(404);
           done();
         });
     });
