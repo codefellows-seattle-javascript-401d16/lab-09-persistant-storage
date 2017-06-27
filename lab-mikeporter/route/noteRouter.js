@@ -41,8 +41,13 @@ router.put('/api/notes', (req, res) => {
 router.delete('/api/notes', (req, res) => {
   if (!req.url.query.id) return res.sendStatus(400);
 
-  storage[req.url.query.id] = undefined;
-  res.writeHead(204);
-  res.end();
-  return;
+  Note.findById(req.url.query.id)
+    .then((note) => note.delete()
+      .then(() => res.sendStatus(204))
+      .catch((err) => {
+        console.log('in here!', err);
+        res.sendStatus(500);
+      })
+    )
+    .catch((err) => res.sendStatus(404));
 });
