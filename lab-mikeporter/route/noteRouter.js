@@ -45,7 +45,6 @@ router.delete('/api/notes', (req, res) => {
     .then((note) => note.delete()
       .then(() => res.sendStatus(204))
       .catch((err) => {
-        console.log('in here!', err);
         res.sendStatus(500);
       })
     )

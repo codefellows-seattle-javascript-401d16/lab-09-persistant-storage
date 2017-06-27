@@ -11,9 +11,7 @@ storage.setItem = (data) => {
 
 storage.fetchItem = (id) => {
   return fs.readJson(`${__dirname}/../data/${id}`)
-    .then((data) => {
-      return Promise.resolve(data);
-    })
+    .then((data) => data)
     .catch(() => {
       return Promise.reject(new Error('404 Not Found'));
     });
@@ -23,8 +21,8 @@ storage.updateItem = (data) => {
   if(data.id && data.creationDate && data.content){
     return fs.writeJson(`${__dirname}/../data/${data.id}`, data)
       .then(() => data)
-      .catch(() => {
-        return Promise.reject(new Error('404 Not Found'));
+      .catch((err) => {
+        return err;
       });
   }
   return Promise.reject(new Error('Data must have content and a creationDate'));
@@ -32,9 +30,8 @@ storage.updateItem = (data) => {
 
 storage.deleteItem = (id) => {
   return fs.remove(`${__dirname}/../data/${id}`)
-    .then(() => data)
-    .catch(() => {
-      console.log('overhere')
-      return Promise.reject(new Error('404 Not Found'));
+    .then((data) => data)
+    .catch((err) => {
+      return err;
     });
 };
