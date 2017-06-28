@@ -13,7 +13,7 @@ router.post('/api/notes', (req, res) => {
   new Note(id, date, content)
     .save()
     .then((note) => res.sendJSON(201, note))
-    .catch((err) => res.sendStatus(500));
+    .catch(() => res.sendStatus(500));
 });
 
 router.get('/api/notes', (req, res) => {
@@ -21,7 +21,7 @@ router.get('/api/notes', (req, res) => {
 
   Note.findById(req.url.query.id)
     .then((note) => res.sendJSON(200, note))
-    .catch((err) => res.sendStatus(404));
+    .catch(() => res.sendStatus(404));
 });
 
 router.put('/api/notes', (req, res) => {
@@ -35,7 +35,7 @@ router.put('/api/notes', (req, res) => {
   new Note(id, date, content)
     .update()
     .then((note) => res.sendJSON(202, note))
-    .catch((err) => res.sendStatus(404));
+    .catch(() => res.sendStatus(404));
 });
 
 router.delete('/api/notes', (req, res) => {
@@ -44,9 +44,7 @@ router.delete('/api/notes', (req, res) => {
   Note.findById(req.url.query.id)
     .then((note) => note.delete()
       .then(() => res.sendStatus(204))
-      .catch((err) => {
-        res.sendStatus(500);
-      })
+      .catch(() => res.sendStatus(500))
     )
-    .catch((err) => res.sendStatus(404));
+    .catch(() => res.sendStatus(404));
 });
